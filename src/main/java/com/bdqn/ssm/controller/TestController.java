@@ -91,7 +91,7 @@ public class TestController {
      */
     @RequestMapping(value = "/booleanType")
     @ResponseBody
-    public Object booleanType(Boolean bool){
-        return CommonReturnType.create("boolean:"+bool.toString());
+    public Object booleanType(Boolean boo){
+        return CommonReturnType.create("boolean:"+boo.toString());
     }
 }
