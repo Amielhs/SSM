@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.bdqn.ssm.dao.ProviderDao">
+
+    <!-- 通过条件查询-供应商表记录数 -->
+    <select id="getProviderCounts" resultType="int">
+        SELECT count(1) AS COUNT FROM `smbms_provider`
+        <where>
+            <if test="pName!=null and pName!=''">
+                AND `proName` LIKE CONCAT ('%',#{pName},'%')
+            </if>
+            <if test="pCode!=null and pCode!=''">
+                AND `proCode` LIKE CONCAT ('%',#{pCode},'%')
+            </if>
+        </where>
+    </select>
+
+    <!-- 查询供货商列表(分页显示) -->
+    <select id="getProviderLists" resultType="Provider">
+        SELECT * FROM `smbms_provider`
+        <where>
+            <if test="qProName != null and qProName!=''">
+                AND `proName` LIKE CONCAT ('%',#{qProName},'%')
+            </if>
+            <if test="qProCode != null and qProCode !=''">
+                AND `proCode` LIKE CONCAT ('%',#{qProCode},'%')
+            </if>
+        </where>
+        ORDER BY `creationDate` DESC LIMIT #{from},#{pSize}
+    </select>
+
+    <insert id="add" parameterType="Provider">
+         INSERT INTO `smbms_provider` (`proCode`,`proName`,`proDesc`,`proContact`,`proPhone`,`proAddress`,`proFax`,`createdBy`,`creationDate`,`companyLicPicPath`,`orgCodePicPath`)
+            VALUES (#{proCode},#{proName},#{proDesc},#{proContact},#{proPhone},#{proAddress},#{proFax},#{createdBy},#{creationDate},#{companyLicPicPath},#{orgCodePicPath})
+    </insert>
+
+    <!--通过proId获取Provider-->
+    <select id="getProviderById" resultType="Provider">
+        SELECT * FROM `smbms_provider`
+         <where>
+             <if test="pId!=null">
+                 `id`= #{pId}
+             </if>
+         </where>
+    </select>
+
+    <!--修改用户信息-->
+    <update id="modify" parameterType="provider">
+        update smbms_provider
+        <trim prefix="set" suffixOverrides="," suffix="where id = #{id}">
+            <if test="proCode != null">proCode=#{proCode},</if>
+            <if test="proName != null">proName=#{proName},</if>
+            <if test="proDesc != null">proDesc=#{proDesc},</if>
+            <if test="proContact != null">proContact=#{proContact},</if>
+            <if test="proPhone != null">proPhone=#{proPhone},</if>
+            <if test="proAddress != null">proAddress=#{proAddress},</if>
+            <if test="proFax != null">proFax=#{proFax},</if>
+            <if test="modifyBy != null">modifyBy=#{modifyBy},</if>
+            <if test="modifyDate != null">modifyDate=#{modifyDate},</if>
+            <if test="companyLicPicPath != null">companyLicPicPath=#{companyLicPicPath},</if>
+            <if test="orgCodePicPath != null">orgCodePicPath=#{orgCodePicPath},</if>
+        </trim>
+    </update>
+
+    <!--根据pid删除供货商-->
+    <delete id="deleteProviderById">
+        DELETE FROM `smbms_provider`
+        <where>
+            <if test="proid!=null">
+                `id` = #{proid}
+            </if>
+        </where>
+    </delete>
+</mapper>

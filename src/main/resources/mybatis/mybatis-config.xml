@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE configuration PUBLIC "-//mybatis.org//DTD SQL Map Config 3.0//EN" "http://mybatis.org/dtd/mybatis-3-config.dtd">
+<configuration>
+    <!-- 2、修改 MyBatis 在运行时的行为方式：1、配置mybatis的log实现为LOG4J -->
+    <settings>
+        <setting name="logImpl" value="LOG4J"/>
+        <!--二级缓存 对在此配置文件下的所有cache 进行全局性开/关设置-->
+        <!--<setting name="cacheEnabled" value="true"/>-->
+        <!--全局性设置懒加载。如果设为‘false’，则所有相关联的都会被初始化加载-->
+        <!--<setting name="lazyLoadingEnabled" value="true"/>-->
+        <!--MyBatis对于resultMap自动映射匹配级别:PARTIAL/NONE /FULL-->
+        <!--<setting name="autoMappingBehavior" value="FULL"/>-->
+        <!--......9个配置-->
+    </settings>
+
+</configuration>

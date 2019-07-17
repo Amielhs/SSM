@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.bdqn.ssm.dao.BillDao">
+
+    <!--根据供应商ID查询订单数量-->
+    <select id="getBillCountByProviderId" resultType="int">
+		SELECT COUNT(1) AS `billCount` FROM `smbms_bill` WHERE `providerId` = #{providerId}
+	</select>
+
+    <!--根据供应商ID删除订单信息-->
+    <delete id="deleteBillByProviderId">
+		DELETE FROM `smbms_bill` WHERE `providerId` = #{providerId}
+	</delete>
+
+    <!--增加订单-->
+    <insert id="add" parameterType="Bill">
+        INSERT INTO `smbms_bill`
+        <trim prefix="(" suffix=")" suffixOverrides="," >
+            <if test="billCode != null" >billCode,</if>
+            <if test="productName != null" >productName,</if>
+            <if test="productDesc != null" >productDesc,</if>
+            <if test="productUnit != null" >productUnit,</if>
+            <if test="productCount != null" >productCount,</if>
+            <if test="totalPrice != null" >totalPrice,</if>
+            <if test="isPayment != null" >isPayment,</if>
+            <if test="providerId != null" >providerId,</if>
+            <if test="createdBy != null" >createdBy,</if>
+            <if test="creationDate != null" >creationDate,</if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides="," >
+            <if test="billCode != null" >#{billCode},</if>
+            <if test="productName != null" >#{productName},</if>
+            <if test="productDesc != null" >#{productDesc},</if>
+            <if test="productUnit != null" >#{productUnit},</if>
+            <if test="productCount != null" >#{productCount},</if>
+            <if test="totalPrice != null" >#{totalPrice},</if>
+            <if test="isPayment != null" >#{isPayment},</if>
+            <if test="providerId != null" >#{providerId},</if>
+            <if test="createdBy != null" >#{createdBy},</if>
+            <if test="creationDate != null" >#{creationDate},</if>
+        </trim>
+    </insert>
+
+    <!--通过查询条件获取供应商列表-模糊查询-getBillList-->
+    <select id="getBillList" parameterType="Bill">
+        SELECT `b`.*,`p`.`proName` AS `providerName`
+            FROM `smbms_bill` AS `b`
+            INNER JOIN `smbms_provider` AS `p` WHERE `b`.`providerId` = `p`.`id`
+    </select>
+
+    <!--通过delId删除Bill-->
+    <delete id="deleteBillById">
+        DELETE FROM `smbms_bill`
+        <where>
+            <if test="id!=null">
+                `id` = #{id}
+            </if>
+        </where>
+    </delete>
+
+    <!--通过billId获取Bill-->
+    <select id="">
+		SELECT `b`.*,`p`.`proName` AS `providerName`
+            FROM `smbms_bill` AS `b`
+            INNER JOIN `smbms_provider` AS `p` ON `b`.`providerId` = `p`.`id`
+            <where>
+                <if test="id!=null">
+                    AND `id` = #{id}
+                </if>
+            </where>
+    </select>
+
+    <!--修改订单信息-->
+    <update id="modify" parameterType="Bill">
+        UPDATE `smbms_bill`
+        <trim prefix="set" suffixOverrides=",">
+            <if test="productName!=null">`productName`=#{productName},</if>
+            <if test="productDesc!=null">`productDesc`=#{productDesc},</if>
+            <if test="productUnit!=null">`productUnit`=#{productUnit},</if>
+            <if test="productCount!=null">`productCount`=#{productCount},</if>
+            <if test="totalPrice!=null">`totalPrice`=#{totalPrice},</if>
+            <if test="isPayment!=null">`isPayment`=#{isPayment},</if>
+            <if test="providerId!=null">`providerId`=#{providerId},</if>
+            <if test="modifyBy!=null">`modifyBy`=#{modifyBy},</if>
+            <if test="modifyDate!=null">`modifyDate`=#{modifyDate},</if>
+        </trim>
+        <where>
+            <if test="id!=null">
+                `id` = #{id}
+            </if>
+        </where>
+    </update>
+</mapper>
