@@ -162,14 +162,14 @@ public class ProviderController {
                     errorInfo = "uploadOcError";
                 }
                 String oldFileName = attach.getOriginalFilename();//原文件名
-                String prefix=FilenameUtils.getExtension(oldFileName);//原文件后缀
+                String prefix= FilenameUtils.getExtension(oldFileName);//原文件后缀
                 int filesize = 50000000;
                 if(attach.getSize() >  filesize){//上传大小不得超过 50000k
                     request.setAttribute(errorInfo, " * 上传大小不得超过 50M");
                     flag = false;
                 }else if(prefix.equalsIgnoreCase("jpg") || prefix.equalsIgnoreCase("png")
                         || prefix.equalsIgnoreCase("jpeg") || prefix.equalsIgnoreCase("pneg")){//上传图片格式不正确
-                    String fileName = System.currentTimeMillis()+RandomUtils.nextInt(1000000)+"_Personal.jpg";
+                    String fileName = System.currentTimeMillis()+ RandomUtils.nextInt(1000000)+"_Personal.jpg";
                     logger.debug("new fileName======== " + attach.getName());
                     File targetFile = new File(path, fileName);
                     if(!targetFile.exists()){

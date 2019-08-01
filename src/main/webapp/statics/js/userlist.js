@@ -53,7 +53,7 @@ $(function(){
 		var obj = $(this);
 		// window.location.href=path+"/user/view/"+ obj.attr("userid");
 		window.location.href="/ssm/user/view/"+ obj.attr("userid");
-        /*$.ajax({
+		/*$.ajax({
             type:"GET",
             url:path+"/user/view/",
             data:{id:obj.attr("userid"),format:"json"},
@@ -82,17 +82,17 @@ $(function(){
             }
         })*/
 	});
-	
+
 	$(".modifyUser").on("click",function(){
 		var obj = $(this);
-		// window.location.href=path+"/user/usermodify?uid="+ obj.attr("userid");
+		//window.location.href=path+"/user/usermodify?uid="+ obj.attr("userid");
 		window.location.href="/ssm/user/usermodify/"+ obj.attr("userid");
 	});
 
 	$('#no').click(function () {
 		cancleBtn();
 	});
-	
+
 	$('#yes').click(function () {
 		deleteUser(userObj);
 	});
@@ -102,7 +102,7 @@ $(function(){
 		changeDLGContent("你确定要删除用户【"+userObj.attr("username")+"】吗？");
 		openYesOrNoDLG();
 	});
-	
+
 	/*$(".deleteUser").on("click",function(){
 		var obj = $(this);
 		if(confirm("你确定要删除用户【"+obj.attr("username")+"】吗？")){
